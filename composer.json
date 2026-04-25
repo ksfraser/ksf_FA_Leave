@@ -1,0 +1,9 @@
+{
+    "name": "ksfraser/ksf_fa_leave",
+    "description": "FA module - Leave",
+    "type": "fa-module",
+    "require": {
+        "ksfraser/ksf_Leave": "*",
+        "ksfraser/composerdendencymanager": "*"
+    }
+}

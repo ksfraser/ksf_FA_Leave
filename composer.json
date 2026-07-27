@@ -1,12 +1,17 @@
 {
     "name": "ksfraser/ksf_fa_leave",
-    "description": "FA module - Leave",
-    "type": "fa-module",
+    "description": "Leave Management Module for FrontAccounting",
+    "type": "frontaccounting-module",
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ksfraser\\FrontAccounting\\Leave\\": "src/"
+        }
     },
     "minimum-stability": "stable"
 }

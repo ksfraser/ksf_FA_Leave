@@ -51,7 +51,7 @@ function get_leave_requests(array $filters = []): ?object
 {
     global $db;
     $sql = "SELECT r.*, e.name as employee_name FROM " . TB_PREF . "leave_requests r
-        LEFT JOIN " . TB_PREF . "hr_employees e ON r.employee_id = e.id WHERE 1=1";
+        LEFT JOIN " . TB_PREF . "ksf_leave_employees e ON r.employee_id = e.id WHERE 1=1";
     
     if (!empty($filters['employee_id'])) {
         $sql .= " AND r.employee_id = " . $filters['employee_id'];
@@ -77,7 +77,7 @@ function get_pending_leave_requests(): ?object
 {
     global $db;
     $sql = "SELECT r.*, e.name as employee_name FROM " . TB_PREF . "leave_requests r
-        LEFT JOIN " . TB_PREF . "hr_employees e ON r.employee_id = e.id
+        LEFT JOIN " . TB_PREF . "ksf_leave_employees e ON r.employee_id = e.id
         WHERE r.status = 'Pending' ORDER BY r.created_at ASC";
     return $db->query($sql);
 }

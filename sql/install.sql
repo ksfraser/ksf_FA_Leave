@@ -168,3 +168,28 @@ INSERT IGNORE INTO `0_leave_bank_config` (config_id, leave_type_id, accrual_unit
 (3, 3, 'Days', 5.00, 0.4167, 10.00, 0, 0.00, 'ShowZeroRate', 1),
 (4, 4, 'Days', 90.00, 0.0000, 90.00, 0, 0.00, 'ShowZeroRate', 1),
 (5, 5, 'Days', 5.00, 0.4167, 10.00, 0, 0.00, 'ShowZeroRate', 1);
+
+-- ---------------------------------------------------------------------------
+-- Module-local employee directory.
+--
+-- WHY THIS TABLE EXISTS (and why it is not FA core):
+--   FA core has no employee entity. In this estate an employee is an FA
+--   person (0_crm_persons) plus a crm_categories row of type 'employee' plus
+--   a satellite employment table - the satellite belongs to ksf_FA_HRM
+--   (0_hrm_contacts_employment). Reaching into another module's table would
+--   make this module depend on that module being activated, which
+--   AGENTS_ARCH.md 12.2 forbids ("a shared seam must never be gated on
+--   another module's activation"). The contact resolver in ksf-fa-common
+--   deliberately does not cover the employee intent either.
+--   So this module keeps its OWN employee directory, keyed by the same
+--   employee_id its own records already carry. It is module-local by design.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `0_ksf_leave_employees` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(120) DEFAULT NULL,
+    `active` TINYINT(1) DEFAULT 1,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `idx_active` (`active`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
